@@ -19,8 +19,8 @@ class App extends Component {
   switchNameHandler = (newName) => {
     this.setState( {
       persons: [
-        { name: newName, age: 28 },
-        { name: 'Pallabi', age:26 },
+        { name: newName, age: 25 },
+        { name: 'Pallabi', age:29 },
         { name: 'Babu', age:25 },
         { name: 'Babui', age:27 },
         { name: 'Motu', age:28 }
@@ -32,7 +32,7 @@ class App extends Component {
     this.setState( {
       persons: [
         { name: 'Lalit', age: 28 },
-        { name: 'Pallabi', age:26 },
+        { name: 'Pallabi', age:30 },
         { name: event.target.value, age: 29 },
         { name: 'Babui', age:27 },
         { name: 'Motu', age:28 }
