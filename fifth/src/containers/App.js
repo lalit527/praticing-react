@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import classes from './App.css';
-import Person from './Person/Person';
+import Persons from '../components/Persons/Persons';
+import Cockpit from '../components/Cockpit/Cockpit'
 
 class App extends Component {
   state = {
@@ -45,18 +46,10 @@ class App extends Component {
   render() {
     let persons = null;
     if ( this.state.showPersons ) {
-      persons = (
-        <div>
-        {this.state.persons.map((person, index) => {
-          return <Person
-            click={() => this.deletePersonHandler(index)}
-            name={person.name} 
-            age={person.age}
-            key={person.id}
-            changed={(event) => this.nameChangedHandler(event, person.id)} />
-        })}
-        </div>
-      );
+      persons = <Persons
+      persons={this.state.persons}
+      clicked={this.deletePersonHandler}
+      changed={this.nameChangedHandler} />;
     }
 
     const assignedClasses = [];
@@ -69,13 +62,11 @@ class App extends Component {
 
     return (
       <div className={classes.App}>
-        <h1>Hi, I'm a React App</h1>
-        <p className={assignedClasses.join( ' ' )}>This is really working!</p>
-        <button 
-          className={classes.Red}
-          onClick={this.togglePersonHandler}>
-          Toggle Persons
-        </button>
+        <Cockpit
+          appTitle={this.props.title}
+          showPersons={this.state.showPersons}
+          persons={this.state.persons}
+          clicked={this.togglePersonsHandler} />
       {persons}
       </div>
     );
