@@ -38,6 +38,7 @@ class App extends Component {
   }
 
   togglePersonHandler = () => {
+    console.log('Here');
     const doesShow = this.state.showPersons;
     this.setState({ showPersons: !doesShow });
   }
@@ -66,7 +67,7 @@ class App extends Component {
           appTitle={this.props.title}
           showPersons={this.state.showPersons}
           persons={this.state.persons}
-          clicked={this.togglePersonsHandler} />
+          clicked={this.togglePersonHandler} />
       {persons}
       </div>
     );
