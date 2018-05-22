@@ -19,7 +19,8 @@ import Aux from '../../../hoc/Aux';
 class Person extends Component {
   constructor(props) {
     super(props);
-    console.log('[Person] Inside constructor', props)
+    console.log('[Person] Inside constructor', props);
+    this.inputElement = React.createRef();
   }
 
   componentWillMount() {
@@ -27,20 +28,14 @@ class Person extends Component {
   }
 
   componentDidMount() {
-    console.log('[Person] Inside componentDidMount')
+    console.log('[Person] Inside componentDidMount');
+    if(this.props.position === 0) {
+      this.inputElement.current.focus();
+    }
   }
 
-  shouldComponentUpdate( nextProps, nextState ){
-    console.log('[Person] Inside componentshouldupdate', nextProps, nextState);
-    return true;
-  }
-  
-  componentWillUpdate( nextProps, nextState ) {
-    console.log('[Person] Inside Component will update');
-  }
-
-  componenetDidUpdate() {
-    console.log('[Person] Inside Component did update');
+  focus() {
+    this.inputElement.current.focus();
   }
 
   render() {
@@ -49,7 +44,11 @@ class Person extends Component {
       <Aux>
         <p onClick={this.props.click}>I'm {this.props.name} and I am {this.props.age} years old!</p>
         <p>{this.props.children}</p>
-        <input type="text" onChange={this.props.changed} value={this.props.name} />
+        <input 
+          ref={this.inputElement}
+          type="text" 
+          onChange={this.props.changed} 
+          value={this.props.name} />
       </Aux>
     )
   }
