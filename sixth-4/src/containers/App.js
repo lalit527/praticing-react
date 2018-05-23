@@ -43,6 +43,26 @@ class App extends PureComponent {
   //   // return true;
   // }
   
+
+  /**
+   * New Lifecycle hook in v16
+   */
+  static getDerivedStateFromProps(nextProps, prevState) {
+    console.log(
+      "[UPDATE App.js] Inside getDerivedStateFromProps",
+      nextProps,
+      prevState
+    )
+    return prevState;
+  }
+
+  getSnapshotBeforeUpdate() {
+    console.log(
+      "[UPDATE App.js] Inside getSnapshotBeforeUpdate"
+    )
+  }
+
+
   componentWillUpdate( nextProps, nextState ) {
     console.log('[App] Inside Component will update');
   }
