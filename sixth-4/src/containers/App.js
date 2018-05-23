@@ -78,6 +78,10 @@ class App extends PureComponent {
     this.setState({ showPersons: !doesShow });
   }
 
+  loginHandler = () => {
+    this.setState({ authenticated: true });
+  }
+
 
   render() {
     let persons = null;
@@ -109,6 +113,7 @@ class App extends PureComponent {
           appTitle={this.props.title}
           showPersons={this.state.showPersons}
           persons={this.state.persons}
+          login={this.loginHandler}
           clicked={this.togglePersonHandler} />
           <AuthContext.Provider value={this.state.authenticated}>
             {persons}
