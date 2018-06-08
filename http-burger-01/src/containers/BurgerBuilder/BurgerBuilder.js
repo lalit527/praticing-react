@@ -25,7 +25,7 @@ class BurgerBuilder extends Component {
   }
 
   componentDidMount() {
-    axios.get('/ingredients.json')
+    axios.get('Ingredients.json')
       .then(response => {
         this.setState({ingredients: response.data});
       })
@@ -119,11 +119,29 @@ class BurgerBuilder extends Component {
     for (let key in disabledInfo) {
       disabledInfo[key] = disabledInfo[key] <= 0
     }
-    let orderSummary = <OrderSummary 
+    let orderSummary = null;
+    let burger = this.state.error ? <p>Ingredients can't be loaded!</p> : <Spinner />;
+
+    if (this.state.ingredients) {
+      burger = (
+        <Aux>
+          <Burger ingredients={this.state.ingredients} />
+            <BuildControls
+                ingredientAdded={this.addIngredientHandler}
+                ingredientRemoved={this.removeIngredientHandler}
+                disabled={disabledInfo}
+                purchasable={this.state.purchasable}
+                ordered={this.purchaseHandler}
+                price={this.state.totalPrice} />
+        </Aux>
+      );
+      orderSummary = <OrderSummary 
         ingredients={this.state.ingredients}
         proce={this.state.price}
         purchaseCancelled={this.purchaseCancelHandler}
         purchaseContinued={this.purchaseContinueHandler} />;
+    }
+    
     if (this.state.loading) {
       orderSummary = <Spinner />;
     }
@@ -132,14 +150,7 @@ class BurgerBuilder extends Component {
         <Modal show={this.state.purchasing} modalClosed={this.purchaseCancelHandler}>
           {orderSummary}
         </Modal>
-        <Burger ingredients={this.state.ingredients} />
-        <BuildControls
-            ingredientAdded={this.addIngredientHandler}
-            ingredientRemoved={this.removeIngredientHandler}
-            disabled={disabledInfo}
-            purchasable={this.state.purchasable}
-            ordered={this.purchaseHandler}
-            price={this.state.totalPrice} />
+        {burger}
       </Aux>
     )
   }
